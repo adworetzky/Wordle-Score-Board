@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'Roboto Mono';
+  font-weight: 100;
+  src: url(https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;400;700&display=swap);
+}
+
+@font-face {
+  font-family: 'Roboto Mono';
+  font-weight: 400;
+  src: url(https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;400;700&display=swap);
+}
+@font-face {
+  font-family: 'Roboto Mono';
+  font-weight: 700;
+  src: url(https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;400;700&display=swap);
+}
+
+$font: 'Roboto Mono';
+$fLight: 100;
+$fRegular: 400;
+$fBold: 700;
+$dark: #222831;
+$mid: #30475e;
+$light: #dddddd;
+$accent: #f05454;
