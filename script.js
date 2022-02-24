@@ -8,9 +8,7 @@ const init = () => {
   tableWrapper.id = 'table-wrapper';
   const tbl = document.createElement('table');
   tbl.id = 'tbl';
-
   tableWrapper.appendChild(tbl);
-
   d3.json(jsonUrl).then(function (data) {
     dataArr = data;
     console.log(dataArr[0].Adam);
@@ -33,9 +31,13 @@ const init = () => {
         } else {
           const td = tr.insertCell();
           td.className = 'cell';
-          td.appendChild(document.createTextNode('Miss'));
+          td.appendChild(document.createTextNode('-'));
         }
       }
+    }
+    tbl.rows[0].className = 'header-row';
+    for (let i = 1; i < tbl.rows.length; i++) {
+      tbl.rows[i].cells[0].className = 'header-row';
     }
   });
   document.body.appendChild(tableWrapper);

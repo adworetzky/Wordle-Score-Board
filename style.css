@@ -55,10 +55,11 @@ body {
 }
 
 .cell {
-  width: 80px;
+  width: 120px;
   border: 1px solid #f05454;
 }
 
 .header-row {
   font-weight: 700;
+  border: 1px solid #f05454;
 }/*# sourceMappingURL=style.css.map */

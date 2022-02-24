@@ -25,9 +25,11 @@ body {
 }
 
 .cell {
-  width: 80px;
+  width: 120px;
+
   border: 1px solid v.$accent;
 }
 .header-row {
   font-weight: v.$fBold;
+  border: 1px solid v.$accent;
 }
