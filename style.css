@@ -104,10 +104,10 @@ main {
 }
 
 #avg-card {
-  padding: 2%;
+  padding: 10px;
   margin: auto;
   background-color: #30475e;
-  border-radius: 3%;
+  border-radius: 10px;
   filter: drop-shadow(0px 0px 10px #292929);
   width: 100%;
 }

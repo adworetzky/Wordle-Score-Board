@@ -49,7 +49,7 @@ const init = () => {
 const makeDataCards = {
   // fetch JSON
   init: function () {
-    d3.json(jsonUrl).then(function (data) {
+    $.getJSON(jsonUrl, function (data) {
       dataArr = data;
       console.log('Data Fetched');
       p.adam = new PlayerStats('Adam', dataArr);
@@ -72,11 +72,9 @@ const makeDataCards = {
   },
   // Make Data Table and Show
   dailyAverage: function (player) {
-    console.log(p[player].pAvg);
     let data = document.querySelector('#avg-card p.card-data');
     data.textContent = p[player].pAvg;
     //to do- appended info to dom
-    console.log(p[player].percentChangeDay);
     let caption = document.querySelector('#avg-card p.card-caption');
     caption.textContent =
       'Change Since Yesterday: ' + p[player].percentChangeDay + '%';
