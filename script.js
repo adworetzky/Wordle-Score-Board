@@ -1,4 +1,4 @@
-import PlayerStats from '/PlayerStats.js';
+import PlayerStats from './PlayerStats.js';
 // Global Variable
 let jsonUrl =
   'https://opensheet.elk.sh/1mUV29bCyMUZiwdl7B6OswR-C_jJZWNV3hc63A35GBM8/toJSONAPI';
