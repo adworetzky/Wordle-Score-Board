@@ -24,34 +24,52 @@ export default class PlayerStats {
     return tempArr;
   }
   arrayAverage(data) {
+    var numbers = data.filter(numbersOnly);
+    function numbersOnly(value) {
+      if (typeof value === 'number') {
+        return value;
+      }
+    }
     let total = 0;
-    data.forEach(function (item) {
-      if (item) {
-        total += parseFloat(item);
+    for (let i = 0; i < numbers.length; i++) {
+      if (numbers[i]) {
+        total += numbers[i];
       } else {
       }
-    });
-    let avg = parseFloat(total / data.length);
+    }
+    let avg = parseFloat(total / numbers.length);
     avg = avg.toFixed(3);
     return avg;
   }
   arrayAverageYesterday(data) {
+    var numbers = data.filter(numbersOnly);
+    function numbersOnly(value) {
+      if (typeof value === 'number') {
+        return value;
+      }
+    }
     let total = 0;
-    for (let i = 0; i < data.length; i++) {
-      if (data[i]) {
-        total += data[i];
+    for (let i = 0; i < numbers.length; i++) {
+      if (numbers[i]) {
+        total += numbers[i];
       } else {
       }
     }
-    let avg = parseFloat(total / (data.length - 1));
+    let avg = parseFloat(total / (numbers.length - 1));
     avg = avg.toFixed(3);
     return avg;
   }
   avg10Day(data) {
     let total = 0;
+    var numbers = data.filter(numbersOnly);
+    function numbersOnly(value) {
+      if (typeof value === 'number') {
+        return value;
+      }
+    }
     for (let i = 1; i <= 10; i++) {
-      if (data[data.length - i]) {
-        total += data[data.length - i];
+      if (numbers[numbers.length - i]) {
+        total += numbers[numbers.length - i];
       } else {
       }
     }
