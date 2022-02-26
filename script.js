@@ -80,8 +80,8 @@ const init = () => {
   lineChartDiv.id = 'line-chart-wrapper';
   const ctx0 = document.createElement('canvas');
   ctx0.id = 'lineChart';
-  ctx0.width = 375;
-  ctx0.height = 350;
+  ctx0.width = 300;
+  ctx0.height = 300;
   lineChartDiv.appendChild(ctx0);
   main.appendChild(lineChartDiv);
   const doughnutChartDiv = document.createElement('div');
@@ -92,8 +92,8 @@ const init = () => {
   doughnutChartDiv.id = 'doughnut-chart-wrapper';
   const ctx1 = document.createElement('canvas');
   ctx1.id = 'doughnutChart';
-  ctx1.width = 375;
-  ctx1.height = 350;
+  ctx1.width = 300;
+  ctx1.height = 300;
   doughnutChartDiv.appendChild(ctx1);
   main.appendChild(doughnutChartDiv);
 
