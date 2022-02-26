@@ -77,6 +77,10 @@ const init = () => {
   main.appendChild(missedDayCard);
 
   const lineChartDiv = document.createElement('div');
+  const lineChartTitle = document.createElement('p');
+  lineChartTitle.className = 'card-title';
+  lineChartTitle.textContent = 'Daily Scores';
+  lineChartDiv.appendChild(lineChartTitle);
   lineChartDiv.id = 'line-chart-wrapper';
   const ctx0 = document.createElement('canvas');
   ctx0.id = 'lineChart';

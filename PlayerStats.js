@@ -74,7 +74,7 @@ export default class PlayerStats {
       }
     }
     let avg = total / 10;
-    return avg;
+    return avg.toFixed(3);
   }
   percentChangeDay(todayAvg, yesterdayAvg) {
     let res = ((todayAvg - yesterdayAvg) / todayAvg) * 100.0;
