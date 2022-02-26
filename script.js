@@ -202,7 +202,8 @@ const drawData = {
         100;
       playerGuessesPercent.push(Math.round(guessPercent));
     }
-    doughnutChart = new Chart(document.getElementById('doughnutChart'), {
+    let context = document.getElementById('doughnutChart');
+    doughnutChart = new Chart(context, {
       type: 'doughnut',
       data: {
         labels: stockGuesses,
@@ -229,11 +230,6 @@ const drawData = {
         },
         tooltips: {
           enabled: true,
-          callbacks: {
-            label: function (tooltipItems, data) {
-              return tooltipItems.yLabel + '%';
-            },
-          },
         },
       },
     });

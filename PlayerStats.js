@@ -74,7 +74,13 @@ export default class PlayerStats {
     return counter;
   }
   findBestScore(data) {
-    let min = Math.min(...data);
+    var numbers = data.filter(numbersOnly);
+    function numbersOnly(value) {
+      if (typeof value === 'number') {
+        return value;
+      }
+    }
+    let min = Math.min(...numbers);
     return min;
   }
 }
