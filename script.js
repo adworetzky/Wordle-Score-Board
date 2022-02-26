@@ -17,15 +17,15 @@ let p = {
     }
   },
 };
-let playerSelect;
+let playerSelect, lineChart;
 
 // Set up structure
 const init = () => {
   const main = document.querySelector('main');
   playerSelect = document.createElement('select');
-  // playerSelect.id = 'player-select';
   playerSelect.className = 'select';
   main.before(playerSelect);
+
   const avgCard = document.createElement('div');
   avgCard.id = 'avg-card';
   const avgCardTitle = document.createElement('p');
@@ -39,8 +39,23 @@ const init = () => {
   avgCardCaption.className = 'card-caption';
   avgCard.appendChild(avgCardCaption);
   main.appendChild(avgCard);
+
   const missedDayCard = document.createElement('div');
   missedDayCard.id = 'missed-day-card';
+  const missedDayCardTitle = document.createElement('p');
+  missedDayCardTitle.className = 'card-title';
+  missedDayCardTitle.textContent = 'Number of Missed Days';
+  missedDayCard.appendChild(missedDayCardTitle);
+  const missedDayCardData = document.createElement('p');
+  missedDayCardData.className = 'card-data';
+  missedDayCard.appendChild(missedDayCardData);
+  main.appendChild(missedDayCard);
+
+  const ctx = document.createElement('canvas');
+  ctx.id = 'lineChart';
+  ctx.width = 400;
+  ctx.height = 350;
+  main.appendChild(ctx);
 
   makeDataCards.init();
 };
@@ -78,33 +93,58 @@ const makeDataCards = {
     let caption = document.querySelector('#avg-card p.card-caption');
     caption.textContent =
       'Change Since Yesterday: ' + p[player].percentChangeDay + '%';
-    makeDataCards.missedDays();
+    makeDataCards.missedDays(player);
   },
-  missedDays: function () {
-    let missedDays = [];
-    for (const element of p) {
-      missedDays.push(' ' + element[0] + ' : ' + element[1].pMissedDays);
-    }
-    console.log('Missed Days: ' + missedDays);
+  missedDays: function (player) {
+    let data = document.querySelector('#missed-day-card p.card-data');
+    data.textContent = p[player].pMissedDays;
     //to do- appended info to dom
-    makeDataCards.makeBarPlot(dataArr);
+    makeDataCards.makeBarPlot(player);
   },
-  makeBarPlot: function (data) {
-    // Parse the Data
-    let players = [];
-    let averages = [];
-    for (const element of p) {
-      players.push(element[0]);
+  makeBarPlot: function (player) {
+    console.log(p[player].pScores);
+    let wordleNum = [];
+    for (const element of dataArr) {
+      wordleNum.push(element.Wordle);
     }
-    for (const element of p) {
-      averages.push(element[1].pAvg);
-    }
-    console.log(players, averages);
+    console.log(wordleNum);
+    const ctx = document.getElementById('lineChart');
+    lineChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: wordleNum,
+        datasets: [
+          {
+            data: p[player].pScores,
+            label: 'Daily Score: ' + p[player].playerName,
+            borderColor: '#f05454',
+            backgroundColor: '#f0545460',
+            fill: true,
+            cubicInterpolationMode: 'monotone',
+            tension: 0.4,
+          },
+        ],
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Daily Scores',
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: 7,
+          },
+        },
+      },
+    });
   },
 };
 
 window.onload = init();
 
 playerSelect.onchange = function () {
+  lineChart.destroy();
   makeDataCards.dailyAverage(playerSelect.value);
+  console.log('Data Updated');
 };
