@@ -3,33 +3,102 @@
 
 @include clearfix.clearfix;
 html {
-  width: 99%;
-  height: 99%;
-}
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: v.$dark;
   width: 100%;
   height: 100%;
+}
+body {
+  width: 100%;
+  height: 100%;
+  background-color: v.$dark;
+  padding: 1%;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 95%;
   font-family: v.$font;
-  font-size: 14px;
+  font-size: 12px;
 }
-#tbl {
+.select {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 15px;
+  width: 100%;
+  font-family: v.$font;
+  padding: 15px 15px;
+  background: #30475e;
+  color: #f05454;
+}
+.select select {
+  font-family: v.$font;
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  outline: 0;
+  border: 0px solid #000000;
+  border-radius: 0px;
+  background: #30475e;
+  color: #f05454;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.select select::-ms-expand {
+  display: none;
+}
+.select select:hover,
+.select select:focus {
+  color: #ffffff;
+  background: #476b8e;
+}
+.select select:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.select_arrow {
+  position: absolute;
+  top: 16px;
+  right: 15px;
+  width: 0px;
+  height: 0px;
+  border: solid #7b7b7b;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+.select select:hover ~ .select_arrow,
+.select select:focus ~ .select_arrow {
+  border-color: #000000;
+}
+.select select:disabled ~ .select_arrow {
+  border-top-color: #cccccc;
+}
+
+#avg-card {
+  padding: 2%;
   margin: auto;
+  background-color: v.$mid;
+  border-radius: 3%;
+  filter: drop-shadow(0px 0px 10px rgb(41, 41, 41));
+  width: 100%;
+}
+.card-title {
+  font-size: 14px;
+  font-weight: 800;
   color: v.$light;
-  border: 1px solid v.$accent;
-  border-collapse: collapse;
 }
-
-.cell {
-  width: 120px;
-
-  border: 1px solid v.$accent;
+.card-data {
+  color: #f05454;
+  font-size: 30px;
+  margin: auto auto 10px;
 }
-.header-row {
-  font-weight: v.$fBold;
-  border: 1px solid v.$accent;
+.card-caption {
+  color: v.$light;
 }
