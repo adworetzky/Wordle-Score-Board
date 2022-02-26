@@ -197,9 +197,9 @@ const drawData = {
     drawData.makeDoughnutChart(player);
   },
   makeDoughnutChart: function (player) {
-    let stockGuesses = [1, 2, 3, 4, 5, 6, 7];
+    let stockGuesses = ['Missed Day', 1, 2, 3, 4, 5, 6, 7];
     let playerGuessesPercent = [];
-    for (let i = 1; i <= 7; i++) {
+    for (let i = 0; i <= 7; i++) {
       let guessPercent =
         (p[player].pScores.filter((x) => x == i).length /
           p[player].pScores.length) *
@@ -232,8 +232,19 @@ const drawData = {
           display: true,
           text: 'Percent of Guesses',
         },
-        tooltips: {
-          enabled: true,
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                let label = context.dataset.label || '';
+
+                if (context.parsed !== null) {
+                  label += ': ' + context.parsed + '%';
+                }
+                return label;
+              },
+            },
+          },
         },
       },
     });
