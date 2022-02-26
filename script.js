@@ -236,7 +236,7 @@ const drawData = {
           tooltip: {
             callbacks: {
               label: function (context) {
-                let label = context.dataset.label || '';
+                let label = context.label;
 
                 if (context.parsed !== null) {
                   label += ': ' + context.parsed + '%';
