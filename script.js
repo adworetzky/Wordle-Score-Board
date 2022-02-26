@@ -158,12 +158,10 @@ const drawData = {
     drawData.makeLineChart(player);
   },
   makeLineChart: function (player) {
-    console.log(p[player].pScores);
     let wordleNum = [];
     for (const element of dataArr) {
       wordleNum.push(element.Wordle);
     }
-    console.log(wordleNum);
     const ctx = document.getElementById('lineChart');
     lineChart = new Chart(ctx, {
       type: 'line',
