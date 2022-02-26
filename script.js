@@ -49,9 +49,9 @@ const init = () => {
   const avg10DayCardData = document.createElement('p');
   avg10DayCardData.className = 'card-data';
   avg10DayCard.appendChild(avg10DayCardData);
-  const avg10DayCardCaption = document.createElement('p');
-  avg10DayCardCaption.className = 'card-caption';
-  avg10DayCard.appendChild(avg10DayCardCaption);
+  // const avg10DayCardCaption = document.createElement('p');
+  // avg10DayCardCaption.className = 'card-caption';
+  // avg10DayCard.appendChild(avg10DayCardCaption);
   main.appendChild(avg10DayCard);
 
   const bestCard = document.createElement('div');
@@ -63,9 +63,6 @@ const init = () => {
   const bestCardData = document.createElement('p');
   bestCardData.className = 'card-data';
   bestCard.appendChild(bestCardData);
-  const bestCardCaption = document.createElement('p');
-  bestCardCaption.className = 'card-caption';
-  bestCard.appendChild(bestCardCaption);
   main.appendChild(bestCard);
 
   const missedDayCard = document.createElement('div');
@@ -140,9 +137,7 @@ const drawData = {
   avg10DayMoving: function (player) {
     let data = document.querySelector('#avg-10day-card p.card-data');
     data.textContent = p[player].pAvg10Day;
-    let caption = document.querySelector('#avg-10day-card p.card-caption');
-    caption.textContent =
-      'Change Since Yesterday: ' + p[player].percentChangeDay + '%';
+
     drawData.missedDays(player);
   },
   missedDays: function (player) {
