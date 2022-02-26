@@ -17,7 +17,7 @@ let p = {
     }
   },
 };
-let playerSelect, lineChart;
+let playerSelect, lineChart, doughnutChart;
 
 // Set up structure
 const init = () => {
@@ -51,17 +51,32 @@ const init = () => {
   missedDayCard.appendChild(missedDayCardData);
   main.appendChild(missedDayCard);
 
-  const ctx = document.createElement('canvas');
-  ctx.id = 'lineChart';
-  ctx.width = 400;
-  ctx.height = 350;
-  main.appendChild(ctx);
+  const lineChartDiv = document.createElement('div');
+  lineChartDiv.id = 'line-chart-wrapper';
+  const ctx0 = document.createElement('canvas');
+  ctx0.id = 'lineChart';
+  ctx0.width = 375;
+  ctx0.height = 350;
+  lineChartDiv.appendChild(ctx0);
+  main.appendChild(lineChartDiv);
+  const doughnutChartDiv = document.createElement('div');
+  const doughnutChartTitle = document.createElement('p');
+  doughnutChartTitle.className = 'card-title';
+  doughnutChartTitle.textContent = 'Percentage Distribution of Guesses';
+  doughnutChartDiv.appendChild(doughnutChartTitle);
+  doughnutChartDiv.id = 'doughnut-chart-wrapper';
+  const ctx1 = document.createElement('canvas');
+  ctx1.id = 'doughnutChart';
+  ctx1.width = 375;
+  ctx1.height = 350;
+  doughnutChartDiv.appendChild(ctx1);
+  main.appendChild(doughnutChartDiv);
 
-  makeDataCards.init();
+  drawData.init();
 };
 
 // Draw data
-const makeDataCards = {
+const drawData = {
   // fetch JSON
   init: function () {
     $.getJSON(jsonUrl, function (data) {
@@ -82,7 +97,7 @@ const makeDataCards = {
       }
       playerSelect.selectedIndex = 0;
 
-      makeDataCards.dailyAverage(playerSelect.value);
+      drawData.dailyAverage(playerSelect.value);
     });
   },
   // Make Data Table and Show
@@ -93,15 +108,15 @@ const makeDataCards = {
     let caption = document.querySelector('#avg-card p.card-caption');
     caption.textContent =
       'Change Since Yesterday: ' + p[player].percentChangeDay + '%';
-    makeDataCards.missedDays(player);
+    drawData.missedDays(player);
   },
   missedDays: function (player) {
     let data = document.querySelector('#missed-day-card p.card-data');
     data.textContent = p[player].pMissedDays;
     //to do- appended info to dom
-    makeDataCards.makeBarPlot(player);
+    drawData.makeLineChart(player);
   },
-  makeBarPlot: function (player) {
+  makeLineChart: function (player) {
     console.log(p[player].pScores);
     let wordleNum = [];
     for (const element of dataArr) {
@@ -138,6 +153,47 @@ const makeDataCards = {
         },
       },
     });
+    drawData.makeDoughnutChart(player);
+  },
+  makeDoughnutChart: function (player) {
+    let stockGuesses = [1, 2, 3, 4, 5, 6, 7];
+    let playerGuessesPercent = [];
+    for (let i = 1; i <= 7; i++) {
+      let guessPercent =
+        (p[player].pScores.filter((x) => x == i).length /
+          p[player].pScores.length) *
+        100;
+      playerGuessesPercent.push(Math.round(guessPercent));
+    }
+
+    console.log(playerGuessesPercent);
+    doughnutChart = new Chart(document.getElementById('doughnutChart'), {
+      type: 'doughnut',
+      data: {
+        labels: stockGuesses,
+        datasets: [
+          {
+            label: 'Number of Guesses',
+            backgroundColor: [
+              '#f9bbbb',
+              '#f69898',
+              '#f37676',
+              '#f05454',
+              '#c04343',
+              '#903232',
+              '#602222',
+            ],
+            data: playerGuessesPercent,
+          },
+        ],
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Percent of Guesses',
+        },
+      },
+    });
   },
 };
 
@@ -145,6 +201,7 @@ window.onload = init();
 
 playerSelect.onchange = function () {
   lineChart.destroy();
-  makeDataCards.dailyAverage(playerSelect.value);
+  doughnutChart.destroy();
+  drawData.dailyAverage(playerSelect.value);
   console.log('Data Updated');
 };

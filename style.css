@@ -127,4 +127,9 @@ main {
 
 .card-caption {
   color: #dddddd;
+}
+
+#doughnut-chart-wrapper {
+  margin: 20px auto 0;
+  padding: 10px;
 }/*# sourceMappingURL=style.css.map */
