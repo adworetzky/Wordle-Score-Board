@@ -104,9 +104,11 @@ main {
 }
 
 #avg-card,
-#missed-day-card {
+#missed-day-card,
+#best-card,
+#avg-10day-card {
   padding: 10px;
-  margin: auto auto 20px;
+  margin: auto auto 15px;
   background-color: #30475e;
   border-radius: 10px;
   filter: drop-shadow(0px 0px 10px #292929);
@@ -115,21 +117,24 @@ main {
 
 .card-title {
   font-size: 14px;
+  line-height: 14px;
   font-weight: 800;
+  margin: 5px 0 0 0;
   color: #dddddd;
 }
 
 .card-data {
   color: #f05454;
   font-size: 30px;
-  margin: auto auto 10px;
+  margin: auto auto 5px;
 }
 
 .card-caption {
   color: #dddddd;
 }
 
-#doughnut-chart-wrapper {
-  margin: 20px auto 0;
+#doughnut-chart-wrapper,
+#line-chart-wrapper {
+  margin: 5px 5% 0;
   padding: 10px;
 }/*# sourceMappingURL=style.css.map */

@@ -40,6 +40,34 @@ const init = () => {
   avgCard.appendChild(avgCardCaption);
   main.appendChild(avgCard);
 
+  const avg10DayCard = document.createElement('div');
+  avg10DayCard.id = 'avg-10day-card';
+  const avg10DayCardTitle = document.createElement('p');
+  avg10DayCardTitle.className = 'card-title';
+  avg10DayCardTitle.textContent = '10 day Moving Avg';
+  avg10DayCard.appendChild(avg10DayCardTitle);
+  const avg10DayCardData = document.createElement('p');
+  avg10DayCardData.className = 'card-data';
+  avg10DayCard.appendChild(avg10DayCardData);
+  const avg10DayCardCaption = document.createElement('p');
+  avg10DayCardCaption.className = 'card-caption';
+  avg10DayCard.appendChild(avg10DayCardCaption);
+  main.appendChild(avg10DayCard);
+
+  const bestCard = document.createElement('div');
+  bestCard.id = 'best-card';
+  const bestCardTitle = document.createElement('p');
+  bestCardTitle.className = 'card-title';
+  bestCardTitle.textContent = 'Best Score';
+  bestCard.appendChild(bestCardTitle);
+  const bestCardData = document.createElement('p');
+  bestCardData.className = 'card-data';
+  bestCard.appendChild(bestCardData);
+  const bestCardCaption = document.createElement('p');
+  bestCardCaption.className = 'card-caption';
+  bestCard.appendChild(bestCardCaption);
+  main.appendChild(bestCard);
+
   const missedDayCard = document.createElement('div');
   missedDayCard.id = 'missed-day-card';
   const missedDayCardTitle = document.createElement('p');
@@ -104,8 +132,15 @@ const drawData = {
   dailyAverage: function (player) {
     let data = document.querySelector('#avg-card p.card-data');
     data.textContent = p[player].pAvg;
-    //to do- appended info to dom
     let caption = document.querySelector('#avg-card p.card-caption');
+    caption.textContent =
+      'Change Since Yesterday: ' + p[player].percentChangeDay + '%';
+    drawData.avg10DayMoving(player);
+  },
+  avg10DayMoving: function (player) {
+    let data = document.querySelector('#avg-10day-card p.card-data');
+    data.textContent = p[player].pAvg10Day;
+    let caption = document.querySelector('#avg-10day-card p.card-caption');
     caption.textContent =
       'Change Since Yesterday: ' + p[player].percentChangeDay + '%';
     drawData.missedDays(player);
@@ -113,6 +148,12 @@ const drawData = {
   missedDays: function (player) {
     let data = document.querySelector('#missed-day-card p.card-data');
     data.textContent = p[player].pMissedDays;
+    //to do- appended info to dom
+    drawData.bestScore(player);
+  },
+  bestScore: function (player) {
+    let data = document.querySelector('#best-card p.card-data');
+    data.textContent = p[player].pBestScore;
     //to do- appended info to dom
     drawData.makeLineChart(player);
   },
@@ -150,6 +191,9 @@ const drawData = {
             min: 0,
             max: 7,
           },
+          tooltip: {
+            enabled: true,
+          },
         },
       },
     });
@@ -165,8 +209,6 @@ const drawData = {
         100;
       playerGuessesPercent.push(Math.round(guessPercent));
     }
-
-    console.log(playerGuessesPercent);
     doughnutChart = new Chart(document.getElementById('doughnutChart'), {
       type: 'doughnut',
       data: {
@@ -191,6 +233,14 @@ const drawData = {
         title: {
           display: true,
           text: 'Percent of Guesses',
+        },
+        tooltips: {
+          enabled: true,
+          callbacks: {
+            label: function (tooltipItems, data) {
+              return tooltipItems.yLabel + '%';
+            },
+          },
         },
       },
     });

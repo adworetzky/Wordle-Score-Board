@@ -3,12 +3,14 @@ export default class PlayerStats {
     this.playerName = playerName;
     this.pScores = this.makeScoreArray(data);
     this.pAvg = this.arrayAverage(this.pScores);
+    this.pAvg10Day = this.avg10Day(this.pScores);
     this.pAvgYesterday = this.arrayAverageYesterday(this.pScores);
     this.percentChangeDay = this.percentChangeDay(
       this.pAvg,
       this.pAvgYesterday
     );
     this.pMissedDays = this.calculateMissedDays(this.pScores);
+    this.pBestScore = this.findBestScore(this.pScores);
   }
   makeScoreArray(data) {
     let tempArr = [];
@@ -45,6 +47,17 @@ export default class PlayerStats {
     avg = avg.toFixed(3);
     return avg;
   }
+  avg10Day(data) {
+    let total = 0;
+    for (let i = 1; i <= 10; i++) {
+      if (data[data.length - i]) {
+        total += data[data.length - i];
+      } else {
+      }
+    }
+    let avg = total / 10;
+    return avg;
+  }
   percentChangeDay(todayAvg, yesterdayAvg) {
     let res = ((todayAvg - yesterdayAvg) / todayAvg) * 100.0;
     res = res.toFixed(3);
@@ -59,5 +72,9 @@ export default class PlayerStats {
       }
     }
     return counter;
+  }
+  findBestScore(data) {
+    let min = Math.min(...data);
+    return min;
   }
 }
