@@ -45,8 +45,8 @@ main {
   width: 100%;
   font-family: "Roboto Mono";
   padding: 15px 15px;
-  background: #30475e;
-  color: #f05454;
+  color: #30475e;
+  background-color: #f05454;
 }
 
 .select select {
@@ -57,8 +57,8 @@ main {
   outline: 0;
   border: 0px solid #000000;
   border-radius: 0px;
-  background: #30475e;
-  color: #f05454;
+  color: #30475e;
+  background-color: #f05454;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
