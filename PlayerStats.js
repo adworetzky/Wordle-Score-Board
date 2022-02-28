@@ -42,7 +42,7 @@ export default class PlayerStats {
     }
     let avg = parseFloat(total / numbers.length);
     avg = avg.toFixed(3);
-    return avg;
+    return parseFloat(avg);
   }
   arrayAverageYesterday(data) {
     var numbers = data.filter(numbersOnly);
@@ -60,7 +60,7 @@ export default class PlayerStats {
     }
     let avg = parseFloat(total / (numbers.length - 1));
     avg = avg.toFixed(3);
-    return avg;
+    return parseFloat(avg);
   }
   avg10Day(data) {
     let total = 0;
@@ -77,7 +77,7 @@ export default class PlayerStats {
       }
     }
     let avg = total / 10;
-    return avg.toFixed(3);
+    return parseFloat(avg.toFixed(3));
   }
   avg10DayYesterday(data) {
     let total = 0;
@@ -94,12 +94,12 @@ export default class PlayerStats {
       }
     }
     let avg = total / 10;
-    return avg.toFixed(3);
+    return parseFloat(avg.toFixed(3));
   }
   percentChangeDay(todayAvg, yesterdayAvg) {
     let res = ((todayAvg - yesterdayAvg) / todayAvg) * 100.0;
     res = res.toFixed(3);
-    return res;
+    return parseFloat(res);
   }
 
   calculateMissedDays(scoreArray) {

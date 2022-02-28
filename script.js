@@ -112,7 +112,6 @@ const init = () => {
   ctx1.height = 300;
   doughnutChartDiv.appendChild(ctx1);
   main.appendChild(doughnutChartDiv);
-
   drawData.init();
 };
 
@@ -137,7 +136,6 @@ const drawData = {
         playerSelect.appendChild(option);
       }
       playerSelect.selectedIndex = 0;
-
       drawData.dailyAverage(playerSelect.value);
     });
   },
@@ -166,19 +164,16 @@ const drawData = {
       caption.textContent = 'Unchanged: ' + p[player].perChange10Day + '%';
       console.log(p[player]);
     }
-
     drawData.missedDays(player);
   },
   missedDays: function (player) {
     let data = document.querySelector('#missed-day-card p.card-data');
     data.textContent = p[player].pMissedDays;
-    //to do- appended info to dom
     drawData.bestScore(player);
   },
   bestScore: function (player) {
     let data = document.querySelector('#best-card p.card-data');
     data.textContent = p[player].pBestScore;
-    //to do- appended info to dom
     drawData.makeLineChart(player);
   },
   makeLineChart: function (player) {
@@ -200,6 +195,12 @@ const drawData = {
             fill: true,
             cubicInterpolationMode: 'monotone',
             tension: 0.4,
+            trendlineLinear: {
+              style: '#dddddd',
+              lineStyle: 'dotted',
+              width: 2,
+              projection: false,
+            },
           },
         ],
       },
@@ -219,7 +220,6 @@ const drawData = {
         },
       },
     });
-
     drawData.makeDoughnutChart(player);
   },
   makeDoughnutChart: function (player) {
@@ -293,8 +293,14 @@ const drawData = {
             borderColor: '#f05454',
             backgroundColor: '#f0545460',
             fill: true,
-            cubicInterpolationMode: 'monotone',
             tension: 0.4,
+
+            trendlineLinear: {
+              style: '#dddddd',
+              lineStyle: 'dotted',
+              width: 2,
+              projection: false,
+            },
           },
         ],
       },
@@ -302,6 +308,12 @@ const drawData = {
         title: {
           display: true,
           text: 'Daily Scores',
+        },
+        scales: {
+          y: {
+            min: 1,
+            max: 6,
+          },
         },
       },
     });
