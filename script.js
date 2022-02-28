@@ -17,7 +17,7 @@ let p = {
     }
   },
 };
-let playerSelect, lineChart, doughnutChart;
+let playerSelect, lineChart, doughnutChart, avgOverTimeChart;
 
 // Set up structure
 const init = () => {
@@ -49,9 +49,9 @@ const init = () => {
   const avg10DayCardData = document.createElement('p');
   avg10DayCardData.className = 'card-data';
   avg10DayCard.appendChild(avg10DayCardData);
-  // const avg10DayCardCaption = document.createElement('p');
-  // avg10DayCardCaption.className = 'card-caption';
-  // avg10DayCard.appendChild(avg10DayCardCaption);
+  const avg10DayCardCaption = document.createElement('p');
+  avg10DayCardCaption.className = 'card-caption';
+  avg10DayCard.appendChild(avg10DayCardCaption);
   main.appendChild(avg10DayCard);
 
   const bestCard = document.createElement('div');
@@ -88,6 +88,18 @@ const init = () => {
   ctx0.height = 300;
   lineChartDiv.appendChild(ctx0);
   main.appendChild(lineChartDiv);
+  const avgOverTimeChartDiv = document.createElement('div');
+  const avgOverTimeChartTitle = document.createElement('p');
+  avgOverTimeChartTitle.className = 'card-title';
+  avgOverTimeChartTitle.textContent = 'Avg Over Time';
+  avgOverTimeChartDiv.appendChild(avgOverTimeChartTitle);
+  avgOverTimeChartDiv.id = 'avg-over-time-chart-wrapper';
+  const ctx2 = document.createElement('canvas');
+  ctx2.id = 'avgOverTimeChart';
+  ctx2.width = 300;
+  ctx2.height = 300;
+  avgOverTimeChartDiv.appendChild(ctx2);
+  main.appendChild(avgOverTimeChartDiv);
   const doughnutChartDiv = document.createElement('div');
   const doughnutChartTitle = document.createElement('p');
   doughnutChartTitle.className = 'card-title';
@@ -135,12 +147,25 @@ const drawData = {
     data.textContent = p[player].pAvg;
     let caption = document.querySelector('#avg-card p.card-caption');
     caption.textContent =
-      'Change Since Yesterday: ' + p[player].percentChangeDay + '%';
+      'Change Since Yesterday: ' + p[player].perChangeDay + '%';
     drawData.avg10DayMoving(player);
   },
   avg10DayMoving: function (player) {
     let data = document.querySelector('#avg-10day-card p.card-data');
     data.textContent = p[player].pAvg10Day;
+    let caption = document.querySelector('#avg-10day-card p.card-caption');
+    if (p[player].perChange10Day < 0) {
+      caption.textContent =
+        'Change Since Yesterday: ' + p[player].perChange10Day + '%';
+      console.log(p[player]);
+    } else if (p[player].perChange10Day > 0) {
+      caption.textContent =
+        'Change Since Yesterday: +' + p[player].perChange10Day + '%';
+      console.log(p[player]);
+    } else {
+      caption.textContent = 'Unchanged: ' + p[player].perChange10Day + '%';
+      console.log(p[player]);
+    }
 
     drawData.missedDays(player);
   },
@@ -188,12 +213,13 @@ const drawData = {
             min: 0,
             max: 7,
           },
-          tooltip: {
-            enabled: true,
-          },
+        },
+        tooltip: {
+          enabled: true,
         },
       },
     });
+
     drawData.makeDoughnutChart(player);
   },
   makeDoughnutChart: function (player) {
@@ -248,6 +274,37 @@ const drawData = {
         },
       },
     });
+    drawData.avgOverTimeChart(player);
+  },
+  avgOverTimeChart: function (player) {
+    let wordleNum = [];
+    for (const element of dataArr) {
+      wordleNum.push(element.Wordle);
+    }
+    const ctx2 = document.getElementById('avgOverTimeChart');
+    avgOverTimeChart = new Chart(ctx2, {
+      type: 'line',
+      data: {
+        labels: wordleNum,
+        datasets: [
+          {
+            data: p[player].historicalAvg,
+            label: 'Historical Avg: ' + p[player].playerName,
+            borderColor: '#f05454',
+            backgroundColor: '#f0545460',
+            fill: true,
+            cubicInterpolationMode: 'monotone',
+            tension: 0.4,
+          },
+        ],
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Daily Scores',
+        },
+      },
+    });
   },
 };
 
@@ -256,6 +313,7 @@ window.onload = init();
 playerSelect.onchange = function () {
   lineChart.destroy();
   doughnutChart.destroy();
+  avgOverTimeChart.destroy();
   drawData.dailyAverage(playerSelect.value);
   console.log('Data Updated');
 };

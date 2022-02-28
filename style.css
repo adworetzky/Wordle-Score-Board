@@ -131,6 +131,7 @@ main {
 
 .card-caption {
   color: #dddddd;
+  margin: 0 0 5px;
 }
 
 #doughnut-chart-wrapper,
